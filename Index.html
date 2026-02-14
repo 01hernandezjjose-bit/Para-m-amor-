@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dana: Nuestro Universo ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@300;500&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0b0d17;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Fondo de estrellas animado */
+        #stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Tarjeta Galáctica */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.3);
+        }
+
+        .badge {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #a29bfe;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #ff79c6;
+            margin: 10px 0;
+            text-shadow: 0 0 15px rgba(255, 121, 198, 0.6);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            min-height: 100px;
+            margin-bottom: 30px;
+            transition: opacity 0.3s ease;
+        }
+
+        button {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(162, 155, 254, 0.8);
+        }
+
+        /* Corazones y elementos flotantes */
+        .floating-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: 15;
+            animation: moveUp 4s linear forwards;
+        }
+
+        @keyframes moveUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stars-container"></div>
+
+    <div class="glass-card">
+        <span class="badge">Juntos desde el 2022</span>
+        <h1>Para Dana</h1>
+        <p id="mainMessage">Hace 4 años, nuestro camino se cruzó para crear nuestra propia galaxia.</p>
+        
+        <button onclick="nextMessage()">Explorar nuestra historia</button>
+    </div>
+
+    <script>
+        // Crear estrellas de fondo
+        const starsContainer = document.getElementById('stars-container');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            starsContainer.appendChild(star);
+        }
+
+        const mensajes = [
+            "Dana, eres el sol de mi sistema solar desde el 2022.",
+            "4 años luz de puro amor a tu lado han sido el mejor viaje.",
+            "Gracias por ser mi estrella guía en este universo infinito.",
+            "Eres el descubrimiento más hermoso que he hecho jamás.",
+            "Mi amor por ti es más grande que cualquier galaxia.",
+            "4 años y mi mundo sigue girando alrededor de ti, Dana.",
+            "Por una eternidad más coleccionando estrellas contigo."
+        ];
+
+        let currentIdx = 0;
+
+        function nextMessage() {
+            const p = document.getElementById('mainMessage');
+            currentIdx = (currentIdx + 1) % mensajes.length;
+            
+            p.style.opacity = 0;
+            
+            setTimeout(() => {
+                p.innerText = mensajes[currentIdx];
+                p.style.opacity = 1;
+            }, 300);
+
+            createEffect();
+        }
+
+        function createEffect() {
+            for(let i=0; i<10; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.innerHTML = ['❤️', '✨', '💖', '⭐'][Math.floor(Math.random()*4)];
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.bottom = '-10vh';
+                element.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                element.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(element);
+                setTimeout(() => element.remove(), 4000);
+            }
+        }
+    </script>
+</body>
+</html>
